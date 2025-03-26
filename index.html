@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,9 @@
       --cor-primaria: #ff6b6b;
       --cor-secundaria: #ff9472;
       --cor-fundo: #fff8f0;
-      --cor-banner: #fff9e5;
+      --cor-escura: #1e1e1e;
+      --cor-clara: #ffffff;
+      --cor-destaque: #ffe07c;
       --fonte-principal: 'Rubik', sans-serif;
     }
 
@@ -20,154 +22,290 @@
       font-family: var(--fonte-principal);
       background-color: var(--cor-fundo);
       color: #333;
+      transition: background 0.3s, color 0.3s;
       overflow-x: hidden;
     }
 
-    .lang-switcher {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: white;
-      border: 1px solid #ccc;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      z-index: 10002;
+    body.dark-mode {
+      background-color: var(--cor-escura);
+      color: var(--cor-clara);
     }
 
-    .lang-switcher select {
-      background: transparent;
+    header {
+      text-align: center;
+      background-color: var(--cor-destaque);
+      position: relative;
+    }
+
+    header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    header h1 {
+      font-size: 3.2rem;
+      color: var(--cor-primaria);
+      margin-top: 1rem;
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    #countdown {
+      background: rgba(255, 107, 107, 0.15);
+      color: var(--cor-primaria);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 1rem auto;
+      display: inline-block;
+      text-shadow: 0 0 8px #ff6b6b;
+      animation: glow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 8px #ff6b6b; }
+      50% { text-shadow: 0 0 20px #ff9472, 0 0 10px #ff6b6b; }
+      100% { text-shadow: 0 0 8px #ff6b6b; }
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      padding: 1rem 2rem;
+      text-decoration: none;
+      color: var(--cor-primaria);
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--cor-secundaria);
+    }
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 2rem;
+    }
+
+    h2 {
+      border-left: 5px solid var(--cor-secundaria);
+      padding-left: 1rem;
+      color: var(--cor-primaria);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    p, li {
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .image-rounded {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-right: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+    }
+
+    .cta-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff6b6b;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      font-weight: bold;
+      z-index: 10000;
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #333;
+      color: white;
       border: none;
-      font-size: 1rem;
-      font-family: var(--fonte-principal);
-      color: #333;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 10001;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #f0f0f0;
+      font-size: 0.9em;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <div class="lang-switcher">
-    <label for="language">🌐 </label>
-    <select id="language" onchange="changeLanguage()">
-      <option value="en">English</option>
-      <option value="pt">Português</option>
-      <option value="zh">中文</option>
-    </select>
-  </div>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  <a href="#" class="cta-float">🚀 Comprar Agora</a>
+
+  <header>
+    <img src="https://i.postimg.cc/y8c4bDmr/DALL-E-2025-03-25-19-31-14-A-full-banner-illustration-for-a-cryptocurrency-meme-token-called-Miste.webp" alt="Banner Mister Rabbit">
+    <h1>Mister Rabbit</h1>
+    <div id="countdown"></div>
+  </header>
 
   <nav>
-    <div class="nav-links">
-      <a href="#sobre" id="nav-about">About</a>
-      <a href="#historia" id="nav-lore">Lore</a>
-      <a href="#roadmap" id="nav-roadmap">Roadmap</a>
-      <a href="#comunidade" id="nav-community">Community</a>
-    </div>
-    <a href="#" class="buy-button-nav" id="buy-button">🚀 Buy Now</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#comunidade">Comunidade</a>
   </nav>
 
   <section id="sobre">
-    <h2 id="section-about-title">About the Project</h2>
-    <p id="section-about-text">Mister Rabbit is a meme token born on Easter Sunday with a simple purpose: hype, chaos, and fun on the blockchain. No empty promises, just community, memes, and opportunities.</p>
-  </section>
-
-  <section id="historia">
-    <h2 id="section-lore-title">The Legend of Mister Rabbit</h2>
-    <p id="section-lore-text"></p>
+    <h2>Sobre o Projeto</h2>
+    <div class="flex">
+      <div>
+        <p>Mister Rabbit é um meme token que nasceu no domingo de Páscoa com uma proposta simples: hype, caos e diversão na blockchain. Nada de promessas vazias, apenas comunidade, memes e oportunidades.</p>
+        <a href="https://t.me/mister_rabbit_token" class="btn">Telegram</a>
+      </div>
+      <div>
+        <img src="https://i.postimg.cc/Tw87tN7V/DALL-E-2025-03-25-19-45-55-A-cartoon-style-rabbit-character-with-glowing-red-eyes-and-a-mischievou.webp" class="image-rounded" alt="Mister Rabbit">
+      </div>
+    </div>
   </section>
 
   <section id="roadmap">
-    <h2 id="section-roadmap-title">Roadmap</h2>
-    <ul id="section-roadmap-list"></ul>
+    <h2>Roadmap</h2>
+    <div class="flex">
+      <div>
+        <ul>
+          <li><strong>Fase 1:</strong> Lá vamos nós! Lá vem o coelho (lançamento, hype, memes)</li>
+          <li><strong>Fase 2:</strong> Coelho Voador (listagens, parcerias, NFTs)</li>
+          <li><strong>Fase 3:</strong> Revolta dos Ovos (airdrops, collabs, virais)</li>
+        </ul>
+      </div>
+      <div>
+        <img src="https://i.postimg.cc/Mpx0sM8F/DALL-E-2025-03-25-20-04-14-A-cartoon-rabbit-with-glowing-red-eyes-and-a-mischievous-smile-holding.webp" class="image-rounded" alt="Mapa Mister Rabbit">
+      </div>
+    </div>
   </section>
 
   <section id="comunidade">
-    <h2 id="section-community-title">Community</h2>
-    <p id="section-community-text">Join the burrow! Mister Rabbit's strength lies in every memer who believes in decentralized chaos.</p>
+    <h2>Comunidade</h2>
+    <div class="flex">
+      <div>
+        <p>Junte-se à nossa toca! A força do Mister Rabbit está em cada memeiro que acredita no caos descentralizado.</p>
+        <a href="https://t.me/mister_rabbit_token" class="btn">Telegram</a>
+        <a href="https://x.com/mister_rabbit" class="btn">Twitter/X</a>
+      </div>
+      <div>
+        <img src="https://i.postimg.cc/gkTdL9sm/DALL-E-2025-03-25-20-10-23-A-group-of-cartoon-style-rabbits-with-glowing-red-eyes-and-mischievous.webp" class="image-rounded" alt="Comunidade Mister Rabbit">
+      </div>
+    </div>
   </section>
 
-  <script>
-    const translations = {
-      en: {
-        about: "About",
-        lore: "Lore",
-        roadmap: "Roadmap",
-        community: "Community",
-        buy: "Buy Now",
-        sectionAboutTitle: "About the Project",
-        sectionAboutText: "Mister Rabbit is a meme token born on Easter Sunday with a simple purpose: hype, chaos, and fun on the blockchain. No empty promises, just community, memes, and opportunities.",
-        sectionLoreTitle: "The Legend of Mister Rabbit",
-        sectionLoreText: `In a parallel universe built from code, memes, and encrypted blocks, an unexpected entity was born — Mister Rabbit, the red-eyed bunny with an insane smile and chaotic genius.<br><br>He wasn't born from a mother or father, but from a glitch in the blockchain during a late-night NFT trade gone wrong on Easter Sunday.<br><br><em>While everyone else hunted eggs, he found the source code of chaos.</em><br><br>Unlike other tokens, Mister Rabbit made no promises. He didn’t want to be the next Ethereum. He only wanted one thing: to inject adrenaline into those who dared follow him down the rabbit hole.<br><br><strong>🐰 The Meme Rebellion</strong><ul><li>Riddled NFTs that only activated at 3:33 AM</li><li>Airdrops triggered by bunny-ear-shaped charts</li><li>A roadmap written in carrot juice</li></ul><br><strong>🥚 The Egg Uprising</strong><br>In Phase 3, Mister Rabbit launched his final blow: digital eggs across the metaverse. But they weren't NFTs. They were smart contracts with intentional bugs. Whoever clicked one either 10x-ed their portfolio... or got trapped in a meme-loop wallet.<br><br><strong>👁️ The End? Only When He Decides</strong><br>Today, Mister Rabbit roams the blockchain, hopping across contracts, injecting volatility, and triggering random rugpulls just for fun. If a token pumps without explanation... it was him. Mister Rabbit. The glitch. The myth. The bunny in the matrix.`,
-        sectionRoadmapTitle: "Roadmap",
-        sectionRoadmapList: [
-          "Phase 1: Launch, hype, memes",
-          "Phase 2: Listings, partnerships, NFTs",
-          "Phase 3: Airdrops, collabs, viral events"
-        ],
-        sectionCommunityTitle: "Community",
-        sectionCommunityText: "Join the burrow! Mister Rabbit's strength lies in every memer who believes in decentralized chaos."
-      },
-      pt: {
-        about: "Sobre",
-        lore: "História",
-        roadmap: "Roteiro",
-        community: "Comunidade",
-        buy: "Comprar Agora",
-        sectionAboutTitle: "Sobre o Projeto",
-        sectionAboutText: "Mister Rabbit é um meme token que nasceu no domingo de Páscoa com uma proposta simples: hype, caos e diversão na blockchain. Nada de promessas vazias, apenas comunidade, memes e oportunidades.",
-        sectionLoreTitle: "A Lenda do Mister Rabbit",
-        sectionLoreText: `Em um universo paralelo construído com código, memes e blocos criptografados, nasceu uma entidade inesperada — Mister Rabbit, o coelho de olhos vermelhos com um sorriso insano e genialidade caótica.<br><br>Ele não nasceu de pai nem mãe, mas sim de um bug na blockchain durante uma transação de NFT às 3 da manhã em pleno domingo de Páscoa.<br><br><em>Enquanto todos caçavam ovos, ele achou o código-fonte do caos.</em><br><br>Diferente dos outros tokens, Mister Rabbit não fazia promessas. Ele não queria ser o próximo Ethereum. Ele queria uma coisa só: causar adrenalina em quem tivesse coragem de segui-lo até o fim da toca.<br><br><strong>🐰 A Rebelião dos Memes</strong><ul><li>NFTs com enigmas ativados às 03:33</li><li>Airdrops que surgem quando o gráfico forma orelhas de coelho</li><li>Um roadmap escrito com suco de cenoura</li></ul><br><strong>🥚 A Revolta dos Ovos</strong><br>Na Fase 3, Mister Rabbit espalhou ovos digitais pelo metaverso. Mas não eram NFTs. Eram contratos inteligentes com bugs de propósito. Quem clicava ou ganhava 10x... ou ficava preso numa wallet rindo de si mesmo.<br><br><strong>👁️ O Fim? Só Quando Ele Quiser</strong><br>Hoje Mister Rabbit corre solto pela blockchain. Se um token valorizar sem explicação... foi ele. Mister Rabbit. O bug. A lenda. O coelho do caos.`,
-        sectionRoadmapTitle: "Roteiro",
-        sectionRoadmapList: [
-          "Fase 1: Lançamento, hype, memes",
-          "Fase 2: Listagens, parcerias, NFTs",
-          "Fase 3: Airdrops, colaborações e virais"
-        ],
-        sectionCommunityTitle: "Comunidade",
-        sectionCommunityText: "Junte-se à toca! A força do Mister Rabbit está em cada memeiro que acredita no caos descentralizado."
-      },
-      zh: {
-        about: "关于我们",
-        lore: "传说",
-        roadmap: "路线图",
-        community: "社区",
-        buy: "立即购买",
-        sectionAboutTitle: "关于项目",
-        sectionAboutText: "Mister Rabbit 是一个在复活节诞生的 meme 代币，宗旨是：区块链上的热潮、混乱和乐趣。没有空洞的承诺，只有社区、meme 和机会。",
-        sectionLoreTitle: "Mister Rabbit 的传说",
-        sectionLoreText: `在一个由代码、meme 和加密区块构建的平行宇宙中，诞生了一个意想不到的存在——Mister Rabbit，一个拥有红眼睛和疯狂微笑的兔子。<br><br>他不是由父母生育，而是一个 NFT 交易中的区块链漏洞，在复活节的凌晨产生的。<br><br><em>当所有人都在寻找彩蛋时，他发现了混乱的源代码。</em><br><br>Mister Rabbit 不承诺任何事情。他不想成为下一个以太坊。他只想一件事：让所有敢跟随他的人心跳加速。<br><br><strong>🐰 meme 的反抗</strong><ul><li>凌晨 3:33 激活的 NFT 谜题</li><li>当图表像兔耳时触发的空投</li><li>用胡萝卜汁写的路线图</li></ul><br><strong>🥚 蛋的起义</strong><br>在第三阶段，他发布了最后一击：遍布元宇宙的数字彩蛋。这些不是 NFT，而是有漏洞的智能合约。有人点了后可能赚 10 倍，也可能被困在一个永远循环的 meme 钱包中。<br><br><strong>👁️ 结局？由他决定</strong><br>如今，Mister Rabbit 在区块链中游走，制造波动，插入混乱。如果某个代币突然暴涨……那就是他。Mister Rabbit，混乱的象征，链上的传奇。`,
-        sectionRoadmapTitle: "路线图",
-        sectionRoadmapList: [
-          "阶段一：发布、热度、meme",
-          "阶段二：上线、合作、NFT",
-          "阶段三：空投、联动、病毒事件"
-        ],
-        sectionCommunityTitle: "社区",
-        sectionCommunityText: "加入兔子洞！Mister Rabbit 的力量来自每一个相信去中心化混乱的 meme 玩家。"
-      }
-    };
+  <footer>
+    © 2025 Mister Rabbit. Um meme. Uma lenda. Um ovo voador.
+  </footer>
 
-    function changeLanguage() {
-      const lang = document.getElementById('language').value;
-      const t = translations[lang];
-      document.getElementById('nav-about').textContent = t.about;
-      document.getElementById('nav-lore').textContent = t.lore;
-      document.getElementById('nav-roadmap').textContent = t.roadmap;
-      document.getElementById('nav-community').textContent = t.community;
-      document.getElementById('buy-button').textContent = `🚀 ${t.buy}`;
-      document.getElementById('section-about-title').textContent = t.sectionAboutTitle;
-      document.getElementById('section-about-text').textContent = t.sectionAboutText;
-      document.getElementById('section-lore-title').textContent = t.sectionLoreTitle;
-      document.getElementById('section-lore-text').innerHTML = t.sectionLoreText;
-      document.getElementById('section-roadmap-title').textContent = t.sectionRoadmapTitle;
-      const roadmapList = document.getElementById('section-roadmap-list');
-      roadmapList.innerHTML = '';
-      t.sectionRoadmapList.forEach(item => {
-        roadmapList.innerHTML += `<li>${item}</li>`;
-      });
-      document.getElementById('section-community-title').textContent = t.sectionCommunityTitle;
-      document.getElementById('section-community-text').textContent = t.sectionCommunityText;
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script>
+    ScrollReveal().reveal('section h2, section p, section ul, .btn', {
+      delay: 100,
+      distance: '30px',
+      origin: 'bottom',
+      duration: 800,
+      easing: 'ease-out',
+      interval: 150
+    });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
     }
 
-    window.onload = changeLanguage;
+    const countdown = document.getElementById('countdown');
+    const launchDate = new Date("2025-04-20T09:00:00").getTime();
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      if (distance <= 0) {
+        clearInterval(timer);
+        countdown.innerHTML = "Lançado!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `Lançamento em: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  </script>
+
+  <script>
+    const cursorTrail = document.createElement("div");
+    cursorTrail.style.position = "fixed";
+    cursorTrail.style.top = 0;
+    cursorTrail.style.left = 0;
+    cursorTrail.style.width = "10px";
+    cursorTrail.style.height = "10px";
+    cursorTrail.style.borderRadius = "50%";
+    cursorTrail.style.background = "rgba(255,107,107,0.6)";
+    cursorTrail.style.pointerEvents = "none";
+    cursorTrail.style.zIndex = 9999;
+    document.body.appendChild(cursorTrail);
+
+    document.addEventListener("mousemove", (e) => {
+      const trail = cursorTrail.cloneNode();
+      trail.style.left = e.clientX + "px";
+      trail.style.top = e.clientY + "px";
+      trail.style.transition = "all 0.5s ease-out";
+      trail.style.opacity = 1;
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 500);
+    });
   </script>
 </body>
 </html>
