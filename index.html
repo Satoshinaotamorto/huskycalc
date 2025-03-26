@@ -1,331 +1,130 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mister Rabbit Token</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/scrollreveal"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cripto Notícias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --cor-primaria: #ff6b6b;
-      --cor-secundaria: #ff9472;
-      --cor-fundo: #fff8f0;
-      --cor-escura: #1e1e1e;
-      --cor-clara: #ffffff;
-      --cor-destaque: #ffe07c;
-      --fonte-principal: 'Rubik', sans-serif;
-    }
-
-    body {
-      margin: 0;
-      font-family: var(--fonte-principal);
-      background-color: var(--cor-fundo);
-      color: #333;
-      transition: background 0.3s, color 0.3s;
-      overflow-x: hidden;
-    }
-
-    body.dark-mode {
-      background-color: var(--cor-escura);
-      color: var(--cor-clara);
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; background-color: #0e0e17; color: #fff; }
 
     header {
+      background: url('https://i.postimg.cc/2jLt5hKt/Chat-GPT-Image-26-de-mar-de-2025-20-56-07.png') no-repeat center center/cover;
+      height: 450px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      background-color: var(--cor-destaque);
-      position: relative;
-    }
-
-    header img {
-      width: 100%;
-      height: auto;
-      display: block;
+      padding: 20px;
     }
 
     header h1 {
-      font-size: 3.2rem;
-      color: var(--cor-primaria);
-      margin-top: 1rem;
-      animation: pulse 1.5s infinite alternate;
+      font-size: 3em;
+      text-shadow: 2px 2px 5px #000;
     }
 
-    #countdown {
-      background: rgba(255, 107, 107, 0.15);
-      color: var(--cor-primaria);
-      padding: 0.75rem 1.5rem;
-      border-radius: 12px;
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin: 1rem auto;
-      display: inline-block;
-      text-shadow: 0 0 8px #ff6b6b;
-      animation: glow 1.5s ease-in-out infinite;
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #f0f0f0;
     }
 
-    @keyframes pulse {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
+    #cotacoes {
+      background: #1e1e2f;
+      padding: 15px;
+      overflow-x: auto;
+      white-space: nowrap;
+      font-size: 1em;
     }
 
-    @keyframes glow {
-      0% { text-shadow: 0 0 8px #ff6b6b; }
-      50% { text-shadow: 0 0 20px #ff9472, 0 0 10px #ff6b6b; }
-      100% { text-shadow: 0 0 8px #ff6b6b; }
+    #cotacoes span {
+      margin-right: 20px;
+      color: #4ee6a3;
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      background: #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
     }
 
-    nav a {
-      padding: 1rem 2rem;
-      text-decoration: none;
-      color: var(--cor-primaria);
-      font-weight: bold;
-      transition: color 0.3s ease;
+    article {
+      background: #1a1a28;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00000055;
     }
 
-    nav a:hover {
-      color: var(--cor-secundaria);
+    article h2 {
+      margin-bottom: 10px;
     }
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 4rem 2rem;
-    }
-
-    h2 {
-      border-left: 5px solid var(--cor-secundaria);
-      padding-left: 1rem;
-      color: var(--cor-primaria);
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    p, li {
-      font-size: 1.1rem;
-      line-height: 1.7;
-    }
-
-    .flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .image-rounded {
-      max-width: 400px;
-      width: 100%;
-      border-radius: 1rem;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn {
-      background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.2s, box-shadow 0.2s;
-      margin-right: 10px;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-    }
-
-    .cta-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ff6b6b;
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 50px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      font-weight: bold;
-      z-index: 10000;
-      text-decoration: none;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #333;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      cursor: pointer;
-      z-index: 10001;
+    article p {
+      color: #ccc;
     }
 
     footer {
       text-align: center;
-      padding: 2rem;
-      background: #f0f0f0;
+      padding: 30px 10px;
+      color: #888;
       font-size: 0.9em;
-      color: #777;
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  <a href="#" class="cta-float">🚀 Comprar Agora</a>
-
   <header>
-    <img src="https://i.postimg.cc/y8c4bDmr/DALL-E-2025-03-25-19-31-14-A-full-banner-illustration-for-a-cryptocurrency-meme-token-called-Miste.webp" alt="Banner Mister Rabbit">
-    <h1>Mister Rabbit</h1>
-    <div id="countdown"></div>
+    <h1>O FUTURO DAS CRIPTOMOEDAS COMEÇA AQUI</h1>
+    <p>As notícias mais quentes do mundo cripto, com análises, alertas e oportunidades.</p>
   </header>
 
-  <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#tokenomics">Tokenomics</a>
-    <a href="#roadmap">Roadmap</a>
-    <a href="#comunidade">Comunidade</a>
-  </nav>
+  <div id="cotacoes">
+    <span>Carregando cotações...</span>
+  </div>
 
-  <section id="sobre">
-    <h2>Sobre o Projeto</h2>
-    <div class="flex">
-      <div>
-        <p>Mister Rabbit é um meme token que nasceu no domingo de Páscoa com uma proposta simples: hype, caos e diversão na blockchain. Nada de promessas vazias, apenas comunidade, memes e oportunidades.</p>
-        <a href="https://t.me/mister_rabbit_token" class="btn">Telegram</a>
-      </div>
-      <div>
-        <img src="https://i.postimg.cc/Tw87tN7V/DALL-E-2025-03-25-19-45-55-A-cartoon-style-rabbit-character-with-glowing-red-eyes-and-a-mischievou.webp" class="image-rounded" alt="Mister Rabbit">
-      </div>
-    </div>
-  </section>
+  <main>
+    <article>
+      <h2>Bitcoin se mantém acima de US$60 mil com alta no volume institucional</h2>
+      <p>O Bitcoin continua firme com grandes movimentações de fundos de investimento...</p>
+    </article>
 
-  <section id="tokenomics">
-    <h2>Tokenomics</h2>
-    <div class="flex">
-      <div>
-        <ul>
-          <li><strong>Total Supply:</strong> 100.000.000 tokens</li>
-          <li><strong>Taxa de Compra:</strong> 7%</li>
-          <li><strong>Taxa de Venda:</strong> 7%</li>
-          <li>→ 2% para recompra</li>
-          <li>→ 2% para desenvolvimento</li>
-          <li>→ 3% para marketing</li>
-        </ul>
-      </div>
-      <div>
-        <img src="https://i.postimg.cc/d3Mw1gK4/Chat-GPT-Image-25-de-mar-de-2025-23-36-58.png" class="image-rounded" alt="Infográfico Tokenomics">
-      </div>
-    </div>
-  </section>
-
-  <section id="roadmap">
-    <h2>Roadmap</h2>
-    <div class="flex">
-      <div>
-        <ul>
-          <li><strong>Fase 1:</strong> Lá vamos nós! Lá vem o coelho (lançamento, hype, memes)</li>
-          <li><strong>Fase 2:</strong> Coelho Voador (listagens, parcerias, NFTs)</li>
-          <li><strong>Fase 3:</strong> Revolta dos Ovos (airdrops, collabs, virais)</li>
-        </ul>
-      </div>
-      <div>
-        <img src="https://i.postimg.cc/Mpx0sM8F/DALL-E-2025-03-25-20-04-14-A-cartoon-rabbit-with-glowing-red-eyes-and-a-mischievous-smile-holding.webp" class="image-rounded" alt="Mapa Mister Rabbit">
-      </div>
-    </div>
-  </section>
-
-  <section id="comunidade">
-    <h2>Comunidade</h2>
-    <div class="flex">
-      <div>
-        <p>Junte-se à nossa toca! A força do Mister Rabbit está em cada memeiro que acredita no caos descentralizado.</p>
-        <a href="https://t.me/mister_rabbit_token" class="btn">Telegram</a>
-        <a href="https://x.com/mister_rabbit" class="btn">Twitter/X</a>
-      </div>
-      <div>
-        <img src="https://i.postimg.cc/gkTdL9sm/DALL-E-2025-03-25-20-10-23-A-group-of-cartoon-style-rabbits-with-glowing-red-eyes-and-mischievous.webp" class="image-rounded" alt="Comunidade Mister Rabbit">
-      </div>
-    </div>
-  </section>
+    <article>
+      <h2>Altcoins em destaque: PEPE, FLOKI e BONK disparam</h2>
+      <p>Moedas meme voltam a surpreender com ganhos de dois dígitos em menos de 24h...</p>
+    </article>
+  </main>
 
   <footer>
-    © 2025 Mister Rabbit. Um meme. Uma lenda. Um ovo voador.
+    &copy; 2025 Cripto Notícias — Desenvolvido por Renan
   </footer>
 
-  <script src="https://unpkg.com/scrollreveal"></script>
   <script>
-    ScrollReveal().reveal('section h2, section p, section ul, .btn', {
-      delay: 100,
-      distance: '30px',
-      origin: 'bottom',
-      duration: 800,
-      easing: 'ease-out',
-      interval: 150
-    });
+    async function atualizarCotacoes() {
+      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,shiba-inu,pepe,floki,binancecoin&vs_currencies=usd');
+      const dados = await res.json();
 
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-    }
+      const moedas = {
+        bitcoin: 'BTC',
+        ethereum: 'ETH',
+        solana: 'SOL',
+        'shiba-inu': 'SHIB',
+        pepe: 'PEPE',
+        floki: 'FLOKI',
+        binancecoin: 'BNB'
+      };
 
-    const countdown = document.getElementById('countdown');
-    const launchDate = new Date("2025-04-20T09:00:00").getTime();
-
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = launchDate - now;
-
-      if (distance <= 0) {
-        clearInterval(timer);
-        countdown.innerHTML = "Lançado!";
-        return;
+      let html = '';
+      for (const [id, simbolo] of Object.entries(moedas)) {
+        html += `<span>${simbolo}: $${dados[id].usd.toLocaleString()}</span>`;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById('cotacoes').innerHTML = html;
+    }
 
-      countdown.innerHTML = `Lançamento em: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
-  </script>
-
-  <script>
-    const cursorTrail = document.createElement("div");
-    cursorTrail.style.position = "fixed";
-    cursorTrail.style.top = 0;
-    cursorTrail.style.left = 0;
-    cursorTrail.style.width = "10px";
-    cursorTrail.style.height = "10px";
-    cursorTrail.style.borderRadius = "50%";
-    cursorTrail.style.background = "rgba(255,107,107,0.6)";
-    cursorTrail.style.pointerEvents = "none";
-    cursorTrail.style.zIndex = 9999;
-    document.body.appendChild(cursorTrail);
-
-    document.addEventListener("mousemove", (e) => {
-      const trail = cursorTrail.cloneNode();
-      trail.style.left = e.clientX + "px";
-      trail.style.top = e.clientY + "px";
-      trail.style.transition = "all 0.5s ease-out";
-      trail.style.opacity = 1;
-      document.body.appendChild(trail);
-      setTimeout(() => trail.remove(), 500);
-    });
+    atualizarCotacoes();
+    setInterval(atualizarCotacoes, 60000);
   </script>
 </body>
 </html>
