@@ -13,6 +13,7 @@
       --cor-fundo: #fff8f0;
       --cor-escura: #1e1e1e;
       --cor-clara: #ffffff;
+      --cor-banner: #fff9e5;
       --fonte-principal: 'Rubik', sans-serif;
     }
 
@@ -32,8 +33,7 @@
 
     header {
       text-align: center;
-      padding: 0;
-      background-color: #000;
+      background-color: var(--cor-banner);
     }
 
     header img {
@@ -45,7 +45,7 @@
     header h1 {
       font-size: 3rem;
       color: var(--cor-primaria);
-      margin-top: 1rem;
+      margin: 1rem auto 0;
       animation: pulse 1.5s infinite alternate;
     }
 
@@ -129,6 +129,7 @@
       text-decoration: none;
       display: inline-block;
       transition: transform 0.2s;
+      margin: 10px 10px 0 0;
     }
 
     .btn:hover {
@@ -171,147 +172,3 @@
     }
   </style>
 </head>
-<body>
-  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  <a href="#" class="cta-float">🚀 Comprar Agora</a>
-
-  <header>
-    <img src="https://i.postimg.cc/y8c4bDmr/DALL-E-2025-03-25-19-31-14-A-full-banner-illustration-for-a-cryptocurrency-meme-token-called-Miste.webp" alt="Banner Mister Rabbit">
-    <h1>Mister Rabbit</h1>
-    <div id="countdown"></div>
-  </header>
-
-  <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#historia">História</a>
-    <a href="#roadmap">Roadmap</a>
-    <a href="#comunidade">Comunidade</a>
-  </nav>
-
-  <section id="sobre">
-    <h2>Sobre o Projeto</h2>
-    <div class="flex">
-      <div>
-        <p>Mister Rabbit é um meme token que nasceu no domingo de Páscoa com uma proposta simples: hype, caos e diversão na blockchain. Nada de promessas vazias, apenas comunidade, memes e oportunidades.</p>
-        <a href="https://t.me/mister_rabbit_token" class="btn">Entrar no Telegram</a>
-      </div>
-      <div>
-        <img src="https://i.postimg.cc/Tw87tN7V/DALL-E-2025-03-25-19-45-55-A-cartoon-style-rabbit-character-with-glowing-red-eyes-and-a-mischievou.webp" class="image-rounded" alt="Mister Rabbit">
-      </div>
-    </div>
-  </section>
-
-  <section id="historia">
-    <h2>A Lenda do Mister Rabbit</h2>
-    <p>Em um universo paralelo construído sobre linhas de código, memes e blocos criptografados, nasceu uma entidade que ninguém esperava — <strong>Mister Rabbit</strong>, o coelho de olhos vermelhos, sorriso insano e planos tão aleatórios quanto geniais.</p>
-    <p>Ele não nasceu de pai nem mãe, mas sim do <em>acidente de um trader NFT com um bug da blockchain</em> durante uma madrugada de domingo de Páscoa.</p>
-    <blockquote>Enquanto todos procuravam ovos, ele encontrou... <strong>o código-fonte do caos.</strong></blockquote>
-    <p>Diferente dos outros tokens, Mister Rabbit não prometia utilidade. Não queria salvar o planeta. Não queria ser o próximo Ethereum. Ele só queria uma coisa: <strong>injetar adrenalina e fogo nos corações de quem ousasse segui-lo até o fundo da toca.</strong></p>
-    <h3>🐰 A Rebelião dos Memes</h3>
-    <ul>
-      <li>NFTs com enigmas que só podiam ser resolvidos às 03:33 da manhã</li>
-      <li>Airdrops aleatórios que só aconteciam quando o gráfico formava orelhas de coelho</li>
-      <li>E um roadmap escrito à mão... com cenoura</li>
-    </ul>
-    <p>E o mais estranho? <strong>Funcionava.</strong></p>
-    <h3>🥚 A Revolta dos Ovos</h3>
-    <p>Na Fase 3, Mister Rabbit lançou o golpe final: ovos digitais espalhados pelo metaverso. Mas não eram NFTs. Nem tokens. Eram <em>contratos inteligentes com bugs intencionais</em>.</p>
-    <p>Quem achava um ovo, clicava... e boom: ganhava 10x... ou ficava trancado numa wallet sem saída com memes zombando: <em>“quem confia demais, sempre pica o pé na toca.”</em></p>
-    <h3>👁️ Final? Só Quando Ele Quiser</h3>
-    <p>Hoje, Mister Rabbit corre solto pela blockchain, pulando entre contratos, hackeando gráficos, criando volatilidade onde não deveria haver. Ninguém sabe onde ele está. Mas sempre que um token dispara sem explicação... é ele. <strong>Mister Rabbit. O caos que você clicou. A lenda que você seguiu.</strong></p>
-  </section>
-
-  <section id="roadmap">
-    <div class="flex">
-      <div>
-        <h2>Roadmap</h2>
-        <ul>
-          <li><strong>Fase 1:</strong> Lá vamos nós! Lá vem o coelho (lançamento, hype, memes)</li>
-          <li><strong>Fase 2:</strong> Coelho Voador (listagens, parcerias, NFTs)</li>
-          <li><strong>Fase 3:</strong> Revolta dos Ovos (airdrops, collabs, virais)</li>
-        </ul>
-      </div>
-      <div>
-        <img src="https://i.postimg.cc/Mpx0sM8F/DALL-E-2025-03-25-20-04-14-A-cartoon-rabbit-with-glowing-red-eyes-and-a-mischievous-smile-holding.webp" class="image-rounded" alt="Mapa Mister Rabbit">
-      </div>
-    </div>
-  </section>
-
-  <section id="comunidade">
-    <h2>Comunidade</h2>
-    <div class="flex">
-      <div>
-        <p>Junte-se à nossa toca! A força do Mister Rabbit está em cada memeiro que acredita no caos descentralizado.</p>
-        <a href="https://t.me/mister_rabbit_token" class="btn">Telegram</a>
-        <a href="https://x.com/mister_rabbit" class="btn">Twitter/X</a>
-      </div>
-      <div>
-        <img src="https://i.postimg.cc/gkTdL9sm/DALL-E-2025-03-25-20-10-23-A-group-of-cartoon-style-rabbits-with-glowing-red-eyes-and-mischievous.webp" class="image-rounded" alt="Comunidade Mister Rabbit">
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 Mister Rabbit. Um meme. Uma lenda. Um ovo voador.
-  </footer>
-
-  <script>
-    ScrollReveal().reveal('section h2, section p, section ul, .btn', {
-      delay: 100,
-      distance: '30px',
-      origin: 'bottom',
-      duration: 800,
-      easing: 'ease-out',
-      interval: 150
-    });
-
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-    }
-
-    const countdown = document.getElementById('countdown');
-    const launchDate = new Date("2025-04-20T09:00:00").getTime();
-
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = launchDate - now;
-
-      if (distance <= 0) {
-        clearInterval(timer);
-        countdown.innerHTML = "Lançado!";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdown.innerHTML = `Lançamento em: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
-
-    // Rastro do mouse
-    const cursorTrail = document.createElement("div");
-    cursorTrail.style.position = "fixed";
-    cursorTrail.style.top = 0;
-    cursorTrail.style.left = 0;
-    cursorTrail.style.width = "10px";
-    cursorTrail.style.height = "10px";
-    cursorTrail.style.borderRadius = "50%";
-    cursorTrail.style.background = "rgba(255,107,107,0.6)";
-    cursorTrail.style.pointerEvents = "none";
-    cursorTrail.style.zIndex = 9999;
-    document.body.appendChild(cursorTrail);
-
-    document.addEventListener("mousemove", (e) => {
-      const trail = cursorTrail.cloneNode();
-      trail.style.left = e.clientX + "px";
-      trail.style.top = e.clientY + "px";
-      trail.style.transition = "all 0.5s ease-out";
-      trail.style.opacity = 1;
-      document.body.appendChild(trail);
-      setTimeout(() => trail.remove(), 500);
-    });
-  </script>
-</body>
-</html>
