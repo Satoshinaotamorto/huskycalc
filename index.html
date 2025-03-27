@@ -73,6 +73,13 @@
     .aumento-volume ul, .em-queda ul {
       list-style: none;
       padding-left: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .aumento-volume ul.show, .em-queda ul.show {
+      max-height: 1000px;
     }
 
     .aumento-volume li, .em-queda li {
@@ -163,13 +170,13 @@
         <h3>🚀 Em Alta</h3>
         <p>Confira as moedas que mais subiram nas últimas 24h.</p>
         <button onclick="mostrarEmAlta()">Ver Top 10</button>
-        <ul id="lista-em-alta" style="margin-top:10px; list-style:none; padding-left:0;"></ul>
+        <ul id="lista-em-alta" class="slide"></ul>
       </div>
       <div class="card">
         <h3>📉 Em Queda</h3>
         <p>Veja as moedas que mais desvalorizaram nas últimas 24h.</p>
         <button onclick="mostrarEmQueda()">Ver Top 10</button>
-        <ul id="lista-em-queda" style="margin-top:10px; list-style:none; padding-left:0;"></ul>
+        <ul id="lista-em-queda" class="slide"></ul>
       </div>
       <div class="card">
         <h3>📰 Breaking News</h3>
@@ -229,6 +236,57 @@
       document.getElementById('ticker').innerHTML = html;
     }
 
+    function toggleLista(id) {
+      const lista = document.getElementById(id);
+      lista.classList.toggle('show');
+    }
+
+    async function mostrarEmAlta() {
+      toggleLista('lista-em-alta');
+      const lista = document.getElementById('lista-em-alta');
+      if (lista.innerHTML !== '') return;
+
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1');
+      const dados = await res.json();
+
+      const top = dados
+        .filter(c => c.price_change_percentage_24h !== null)
+        .sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h)
+        .slice(0, 10);
+
+      top.forEach(coin => {
+        const item = document.createElement('li');
+        item.innerHTML = `
+          <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
+          📈 +${coin.price_change_percentage_24h.toFixed(2)}%<br>
+          💲 $${coin.current_price.toLocaleString()}`;
+        lista.appendChild(item);
+      });
+    }
+
+    async function mostrarEmQueda() {
+      toggleLista('lista-em-queda');
+      const lista = document.getElementById('lista-em-queda');
+      if (lista.innerHTML !== '') return;
+
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1');
+      const dados = await res.json();
+
+      const top = dados
+        .filter(c => c.price_change_percentage_24h !== null)
+        .sort((a, b) => a.price_change_percentage_24h - b.price_change_percentage_24h)
+        .slice(0, 10);
+
+      top.forEach(coin => {
+        const item = document.createElement('li');
+        item.innerHTML = `
+          <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
+          🔻 ${coin.price_change_percentage_24h.toFixed(2)}%<br>
+          💲 $${coin.current_price.toLocaleString()}`;
+        lista.appendChild(item);
+      });
+    }
+
     async function obterTopAumentoVolume() {
       try {
         const resposta = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=20&page=1');
@@ -249,60 +307,6 @@
       } catch (erro) {
         console.error('Erro ao buscar dados:', erro);
         document.getElementById('lista-aumento-volume').innerHTML = '<li>Erro ao carregar dados.</li>';
-      }
-    }
-
-    async function mostrarEmAlta() {
-      try {
-        const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1');
-        const dados = await res.json();
-
-        const top = dados
-          .filter(c => c.price_change_percentage_24h !== null)
-          .sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h)
-          .slice(0, 10);
-
-        const lista = document.getElementById('lista-em-alta');
-        lista.innerHTML = '';
-
-        top.forEach(coin => {
-          const item = document.createElement('li');
-          item.innerHTML = `
-            <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
-            📈 +${coin.price_change_percentage_24h.toFixed(2)}%<br>
-            💲 $${coin.current_price.toLocaleString()}`;
-          lista.appendChild(item);
-        });
-      } catch (err) {
-        console.error('Erro ao buscar moedas em alta:', err);
-        document.getElementById('lista-em-alta').innerHTML = '<li>Erro ao carregar dados.</li>';
-      }
-    }
-
-    async function mostrarEmQueda() {
-      try {
-        const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1');
-        const dados = await res.json();
-
-        const top = dados
-          .filter(c => c.price_change_percentage_24h !== null)
-          .sort((a, b) => a.price_change_percentage_24h - b.price_change_percentage_24h)
-          .slice(0, 10);
-
-        const lista = document.getElementById('lista-em-queda');
-        lista.innerHTML = '';
-
-        top.forEach(coin => {
-          const item = document.createElement('li');
-          item.innerHTML = `
-            <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
-            🔻 ${coin.price_change_percentage_24h.toFixed(2)}%<br>
-            💲 $${coin.current_price.toLocaleString()}`;
-          lista.appendChild(item);
-        });
-      } catch (err) {
-        console.error('Erro ao buscar moedas em queda:', err);
-        document.getElementById('lista-em-queda').innerHTML = '<li>Erro ao carregar dados.</li>';
       }
     }
 
