@@ -141,7 +141,7 @@
 
   <main>
     <section class="aumento-volume">
-      <h2>🔥 TOP 5 Criptos com Maior Aumento de Volume (24h)</h2>
+      <h2>🔥 TOP 5 Criptos com Maior Volume (24h)</h2>
       <ul id="lista-aumento-volume">
         <li>Carregando dados...</li>
       </ul>
@@ -216,24 +216,24 @@
 
     async function obterTopAumentoVolume() {
       try {
-        const resposta = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+        const resposta = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=20&page=1');
         const dados = await resposta.json();
 
-        const topAumentos = dados
-          .filter(cripto => cripto.volume_change_percentage_24h !== null)
-          .sort((a, b) => b.volume_change_percentage_24h - a.volume_change_percentage_24h)
+        const top = dados
+          .filter(c => c.total_volume !== null)
           .slice(0, 5);
 
         const lista = document.getElementById('lista-aumento-volume');
         lista.innerHTML = '';
 
-        topAumentos.forEach(cripto => {
+        top.forEach(coin => {
           const item = document.createElement('li');
-          item.innerHTML = `<strong>${cripto.name} (${cripto.symbol.toUpperCase()})</strong>: Volume $${cripto.total_volume.toLocaleString()} <br>🔺 +${cripto.volume_change_percentage_24h.toFixed(2)}%`;
+          item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong>:<br> Volume $${coin.total_volume.toLocaleString()}<br>🪙 Preço: $${coin.current_price}`;
           lista.appendChild(item);
         });
       } catch (erro) {
-        console.error('Erro ao obter dados das criptomoedas:', erro);
+        console.error('Erro ao buscar dados:', erro);
+        document.getElementById('lista-aumento-volume').innerHTML = '<li>Erro ao carregar dados.</li>';
       }
     }
 
