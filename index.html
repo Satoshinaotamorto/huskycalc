@@ -22,15 +22,27 @@
 
     #cotacoes {
       background: #1e1e2f;
-      padding: 15px;
-      overflow-x: auto;
+      padding: 15px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #cotacoes .ticker {
+      display: inline-block;
       white-space: nowrap;
-      font-size: 1em;
+      padding-left: 100%;
+      animation: ticker 30s linear infinite;
     }
 
     #cotacoes span {
-      margin-right: 20px;
+      margin-right: 50px;
       color: #4ee6a3;
+      font-size: 1em;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
     }
 
     main {
@@ -66,9 +78,7 @@
 <body>
   <header></header>
 
-  <div id="cotacoes">
-    <span>Carregando cotações...</span>
-  </div>
+  <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
 
   <main>
     <article>
@@ -88,7 +98,7 @@
 
   <script>
     async function atualizarCotacoes() {
-      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,shiba-inu,pepe,floki,binancecoin&vs_currencies=usd');
+      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,shiba-inu,pepe,floki,binancecoin&vs_currencies=usd&precision=10');
       const dados = await res.json();
 
       const moedas = {
@@ -103,10 +113,16 @@
 
       let html = '';
       for (const [id, simbolo] of Object.entries(moedas)) {
-        html += `<span>${simbolo}: $${dados[id].usd.toLocaleString()}</span>`;
+        let preco = dados[id].usd;
+        if (preco < 0.01) {
+          preco = preco.toExponential(2);
+        } else {
+          preco = preco.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 });
+        }
+        html += `<span>${simbolo}: $${preco}</span>`;
       }
 
-      document.getElementById('cotacoes').innerHTML = html;
+      document.getElementById('ticker').innerHTML = html;
     }
 
     atualizarCotacoes();
