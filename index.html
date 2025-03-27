@@ -1,3 +1,7 @@
+from pathlib import Path
+
+# Código HTML completo com melhorias aplicadas anteriormente
+html_code = """
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -17,9 +21,23 @@
       justify-content: center;
     }
 
-    #cotacoes, #volume-ticker {
+    #tickers-container {
       background: #141422;
-      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid #1e1e2d;
+    }
+
+    .ticker-title {
+      padding: 10px 15px;
+      font-weight: bold;
+      background-color: #1e1e2d;
+      border-bottom: 1px solid #2c2c3c;
+      color: #00e0d6;
+    }
+
+    #cotacoes, #volume-ticker {
+      padding: 10px;
       overflow: hidden;
     }
 
@@ -32,7 +50,7 @@
 
     .ticker span {
       margin-right: 40px;
-      color: #00e0d6;
+      color: #ffffff;
     }
 
     @keyframes ticker {
@@ -112,11 +130,14 @@
   </style>
 </head>
 <body>
-
   <header></header>
 
-  <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
-  <div id="volume-ticker"><div class="ticker" id="volume-ticker-content">Carregando volumes...</div></div>
+  <div id="tickers-container">
+    <div class="ticker-title">💰 Cotações em Tempo Real</div>
+    <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
+    <div class="ticker-title">📊 Top 5 por Volume nas Últimas 24h</div>
+    <div id="volume-ticker"><div class="ticker" id="volume-ticker-content">Carregando volumes...</div></div>
+  </div>
 
   <main>
     <section class="destaques">
@@ -126,21 +147,18 @@
         <button onclick="mostrarEmAlta()">Ver Top 10</button>
         <ul id="lista-em-alta" class="slide"></ul>
       </div>
-
       <div class="card">
         <h3>📉 Em Queda</h3>
         <p>Veja as moedas que mais desvalorizaram nas últimas 24h.</p>
         <button onclick="mostrarEmQueda()">Ver Top 10</button>
         <ul id="lista-em-queda" class="slide"></ul>
       </div>
-
       <div class="card">
         <h3>📰 Breaking News</h3>
         <p>Notícias quentes que acabaram de sair direto das blockchains.</p>
         <ul id="lista-breaking-news" style="margin-top:10px; list-style:none; padding-left:0;"></ul>
       </div>
     </section>
-
     <section class="timeline">
       <div class="post">
         <time>10:45 - 26/03</time>
@@ -148,12 +166,10 @@
         <p>A comunidade especula um novo projeto envolvido com o meme token...</p>
       </div>
     </section>
-
     <section class="alerta-ghost">
       <h2>👻 Alerta do Ghost</h2>
       <p>Dominância do BTC subiu. Pode ser hora de realocar para altcoins antes da próxima explosão.</p>
     </section>
-
   </main>
 
   <footer>&copy; 2025 Crypto Ghost — Desenvolvido por Renan</footer>
@@ -250,6 +266,12 @@
       setInterval(atualizarBreakingNews, 180000);
     });
   </script>
-
 </body>
 </html>
+"""
+
+# Salvar como arquivo HTML
+file_path = Path("/mnt/data/crypto-ghost-site.html")
+file_path.write_text(html_code, encoding="utf-8")
+file_path
+
