@@ -98,7 +98,7 @@
 
   <script>
     async function atualizarCotacoes() {
-      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,shiba-inu,pepe,floki,binancecoin&vs_currencies=usd&precision=10');
+      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,shiba-inu,pepe,floki,binancecoin&vs_currencies=usd');
       const dados = await res.json();
 
       const moedas = {
@@ -114,8 +114,8 @@
       let html = '';
       for (const [id, simbolo] of Object.entries(moedas)) {
         let preco = dados[id].usd;
-        if (preco < 0.01) {
-          preco = preco.toExponential(2);
+        if (preco < 0.0001) {
+          preco = preco.toPrecision(6);
         } else {
           preco = preco.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 });
         }
