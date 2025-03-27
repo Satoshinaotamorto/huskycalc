@@ -1,43 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Crypto Ghost | Notícias Cripto</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; line-height: 1.6; }
+    body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; }
 
     header {
-      background: url('https://i.postimg.cc/63BJ1zWm/Chat-GPT-Image-26-de-mar-de-2025-23-49-19.png') no-repeat center center/cover;
+      background: url('https://i.postimg.cc/2jLt5hKt/Chat-GPT-Image-26-de-mar-de-2025-20-56-07.png') no-repeat center center/cover;
       height: 450px;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 20px;
+      justify-content: center;
     }
 
-    #cotacoes {
+    #cotacoes, #volume-ticker {
       background: #141422;
-      padding: 15px 0;
+      padding: 15px;
       overflow: hidden;
-      position: relative;
     }
 
-    #cotacoes .ticker {
+    .ticker {
       display: inline-block;
       white-space: nowrap;
-      padding-left: 100%;
       animation: ticker 30s linear infinite;
+      padding-left: 100%;
     }
 
-    #cotacoes span {
-      margin-right: 50px;
+    .ticker span {
+      margin-right: 40px;
       color: #00e0d6;
-      font-size: 1em;
     }
 
     @keyframes ticker {
@@ -47,41 +42,21 @@
 
     main {
       max-width: 900px;
-      margin: 30px auto;
+      margin: auto;
       padding: 20px;
-      animation: fadeIn 1s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .aumento-volume, .em-queda {
-      background: #14142b;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,255,255,0.1);
-      margin-top: 40px;
-    }
-
-    .aumento-volume h2, .em-queda h2 {
-      color: #00e0d6;
-      margin-bottom: 15px;
     }
 
     ul.slide {
       list-style: none;
-      padding-left: 0;
+      padding: 0;
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.6s ease;
     }
 
-    .aumento-volume li, .em-queda li {
-      padding: 8px 0;
+    ul.slide li {
       border-bottom: 1px solid #2c2c3f;
-      color: #d4d4e0;
+      padding: 8px 0;
     }
 
     .destaques {
@@ -89,28 +64,21 @@
       gap: 20px;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin: 40px 0;
+      margin-top: 40px;
     }
 
     .card {
       flex: 1;
-      min-width: 260px;
       background: #14142b;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,255,255,0.1);
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(0,255,255,0.3);
     }
 
     .card button {
       margin-top: 10px;
       background: #00e0d6;
-      color: #000;
+      color: black;
       border: none;
       padding: 8px 16px;
       border-radius: 6px;
@@ -124,19 +92,14 @@
       padding-left: 15px;
     }
 
-    .timeline time {
-      font-size: 0.8em;
-      color: #888;
-    }
-
     .alerta-ghost {
+      margin-top: 40px;
       background: #0f0f22;
-      border: 1px solid #00e0d6;
       padding: 25px;
       border-radius: 10px;
-      text-align: center;
-      margin-top: 40px;
+      border: 1px solid #00e0d6;
       box-shadow: 0 0 20px rgba(0,224,214,0.2);
+      text-align: center;
     }
 
     footer {
@@ -149,18 +112,13 @@
   </style>
 </head>
 <body>
+
   <header></header>
 
   <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
+  <div id="volume-ticker"><div class="ticker" id="volume-ticker-content">Carregando volumes...</div></div>
 
   <main>
-    <section class="aumento-volume">
-      <h2>🔥 TOP 5 Criptos com Maior Volume (24h)</h2>
-      <ul id="lista-aumento-volume">
-        <li>Carregando dados...</li>
-      </ul>
-    </section>
-
     <section class="destaques">
       <div class="card">
         <h3>🚀 Em Alta</h3>
@@ -168,15 +126,18 @@
         <button onclick="mostrarEmAlta()">Ver Top 10</button>
         <ul id="lista-em-alta" class="slide"></ul>
       </div>
+
       <div class="card">
         <h3>📉 Em Queda</h3>
         <p>Veja as moedas que mais desvalorizaram nas últimas 24h.</p>
         <button onclick="mostrarEmQueda()">Ver Top 10</button>
         <ul id="lista-em-queda" class="slide"></ul>
       </div>
+
       <div class="card">
         <h3>📰 Breaking News</h3>
         <p>Notícias quentes que acabaram de sair direto das blockchains.</p>
+        <ul id="lista-breaking-news" style="margin-top:10px; list-style:none; padding-left:0;"></ul>
       </div>
     </section>
 
@@ -186,138 +147,105 @@
         <h4>Pepe Coin dispara 21% após tweet misterioso de Elon Musk</h4>
         <p>A comunidade especula um novo projeto envolvido com o meme token...</p>
       </div>
-      <div class="post">
-        <time>09:12 - 26/03</time>
-        <h4>Bitcoin se aproxima de US$70 mil após entrada de fundo institucional</h4>
-        <p>Investidores institucionais voltam a se posicionar com força...</p>
-      </div>
     </section>
 
     <section class="alerta-ghost">
       <h2>👻 Alerta do Ghost</h2>
-      <p>Atenção: Dominância do BTC subiu. Pode ser hora de realocar para altcoins antes da próxima explosão.</p>
+      <p>Dominância do BTC subiu. Pode ser hora de realocar para altcoins antes da próxima explosão.</p>
     </section>
+
   </main>
 
-  <footer>
-    &copy; 2025 Crypto Ghost — Desenvolvido por Renan
-  </footer>
+  <footer>&copy; 2025 Crypto Ghost — Desenvolvido por Renan</footer>
 
   <script>
     async function atualizarCotacoes() {
       const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,shiba-inu,pepe,floki,binancecoin&vs_currencies=usd');
       const dados = await res.json();
-
       const moedas = {
-        bitcoin: 'BTC',
-        ethereum: 'ETH',
-        solana: 'SOL',
-        'shiba-inu': 'SHIB',
-        pepe: 'PEPE',
-        floki: 'FLOKI',
-        binancecoin: 'BNB'
+        bitcoin: 'BTC', ethereum: 'ETH', solana: 'SOL', 'shiba-inu': 'SHIB', pepe: 'PEPE', floki: 'FLOKI', binancecoin: 'BNB'
       };
-
       let html = '';
       for (const [id, simbolo] of Object.entries(moedas)) {
         let preco = dados[id].usd;
-        if (preco < 0.0001) {
-          preco = preco.toPrecision(6);
-        } else {
-          preco = preco.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 });
-        }
+        preco = preco < 0.0001 ? preco.toPrecision(6) : preco.toLocaleString(undefined, { minimumFractionDigits: 2 });
         html += `<span>${simbolo}: $${preco}</span>`;
       }
-
       document.getElementById('ticker').innerHTML = html;
+    }
+
+    async function atualizarVolumeTicker() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=5&page=1');
+        const dados = await res.json();
+        let html = '';
+        dados.forEach(coin => {
+          html += `<span>🔊 ${coin.name} (${coin.symbol.toUpperCase()}): $${coin.total_volume.toLocaleString()}</span>`;
+        });
+        document.getElementById('volume-ticker-content').innerHTML = html;
+      } catch (err) {
+        console.error('Erro ao atualizar volume ticker:', err);
+      }
+    }
+
+    async function atualizarBreakingNews() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/status_updates');
+        const dados = await res.json();
+        const lista = document.getElementById('lista-breaking-news');
+        lista.innerHTML = '';
+        dados.status_updates.slice(0, 5).forEach(update => {
+          const item = document.createElement('li');
+          item.style.marginBottom = '12px';
+          item.innerHTML = `<strong>${update.project.name}</strong> — <em>${new Date(update.created_at).toLocaleString()}</em><br>${update.description}`;
+          lista.appendChild(item);
+        });
+      } catch (err) {
+        console.error('Erro ao buscar Breaking News:', err);
+        document.getElementById('lista-breaking-news').innerHTML = '<li>Erro ao carregar notícias.</li>';
+      }
     }
 
     function toggleLista(id) {
       const lista = document.getElementById(id);
-      if (lista.style.maxHeight) {
-        lista.style.maxHeight = null;
-      } else {
-        lista.style.maxHeight = lista.scrollHeight + 'px';
-      }
+      lista.style.maxHeight = lista.style.maxHeight ? null : lista.scrollHeight + 'px';
     }
 
     async function mostrarEmAlta() {
       toggleLista('lista-em-alta');
       const lista = document.getElementById('lista-em-alta');
       if (lista.dataset.loaded === 'true') return;
-
-      try {
-        const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=percent_change_24h_desc&per_page=10&page=1');
-        const dados = await res.json();
-
-        lista.innerHTML = '';
-        dados.forEach(coin => {
-          const item = document.createElement('li');
-          item.innerHTML = `
-            <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
-            📈 +${coin.price_change_percentage_24h.toFixed(2)}%<br>
-            💲 $${coin.current_price.toLocaleString()}`;
-          lista.appendChild(item);
-        });
-        lista.dataset.loaded = 'true';
-      } catch (err) {
-        console.error('Erro ao buscar moedas em alta:', err);
-        lista.innerHTML = '<li>Erro ao carregar dados.</li>';
-      }
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=percent_change_24h_desc&per_page=10&page=1');
+      const dados = await res.json();
+      dados.forEach(coin => {
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>📈 +${coin.price_change_percentage_24h.toFixed(2)}%<br>💲 $${coin.current_price.toLocaleString()}`;
+        lista.appendChild(item);
+      });
+      lista.dataset.loaded = 'true';
     }
 
     async function mostrarEmQueda() {
       toggleLista('lista-em-queda');
       const lista = document.getElementById('lista-em-queda');
       if (lista.dataset.loaded === 'true') return;
-
-      try {
-        const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=percent_change_24h_asc&per_page=10&page=1');
-        const dados = await res.json();
-
-        lista.innerHTML = '';
-        dados.forEach(coin => {
-          const item = document.createElement('li');
-          item.innerHTML = `
-            <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
-            🔻 ${coin.price_change_percentage_24h.toFixed(2)}%<br>
-            💲 $${coin.current_price.toLocaleString()}`;
-          lista.appendChild(item);
-        });
-        lista.dataset.loaded = 'true';
-      } catch (err) {
-        console.error('Erro ao buscar moedas em queda:', err);
-        lista.innerHTML = '<li>Erro ao carregar dados.</li>';
-      }
-    }
-
-    async function obterTopAumentoVolume() {
-      try {
-        const resposta = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=20&page=1');
-        const dados = await resposta.json();
-
-        const top = dados
-          .filter(c => c.total_volume !== null)
-          .slice(0, 5);
-
-        const lista = document.getElementById('lista-aumento-volume');
-        lista.innerHTML = '';
-
-        top.forEach(coin => {
-          const item = document.createElement('li');
-          item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong>:<br> Volume $${coin.total_volume.toLocaleString()}<br>🪙 Preço: $${coin.current_price.toLocaleString()}`;
-          lista.appendChild(item);
-        });
-      } catch (erro) {
-        console.error('Erro ao buscar dados:', erro);
-        document.getElementById('lista-aumento-volume').innerHTML = '<li>Erro ao carregar dados.</li>';
-      }
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=percent_change_24h_asc&per_page=10&page=1');
+      const dados = await res.json();
+      dados.forEach(coin => {
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>🔻 ${coin.price_change_percentage_24h.toFixed(2)}%<br>💲 $${coin.current_price.toLocaleString()}`;
+        lista.appendChild(item);
+      });
+      lista.dataset.loaded = 'true';
     }
 
     atualizarCotacoes();
-    obterTopAumentoVolume();
+    atualizarVolumeTicker();
+    atualizarBreakingNews();
     setInterval(atualizarCotacoes, 60000);
-    setInterval(obterTopAumentoVolume, 60000);
+    setInterval(atualizarVolumeTicker, 60000);
+    setInterval(atualizarBreakingNews, 180000);
   </script>
+
 </body>
 </html>
