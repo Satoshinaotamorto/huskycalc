@@ -10,7 +10,7 @@
     body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; }
 
     header {
-      background: url('https://i.postimg.cc/63BJ1zWm/Chat-GPT-Image-26-de-mar-de-2025-23-49-19.png') no-repeat center center/cover;
+      background: url('https://i.postimg.cc/2jLt5hKt/Chat-GPT-Image-26-de-mar-de-2025-20-56-07.png') no-repeat center center/cover;
       height: 450px;
       display: flex;
       flex-direction: column;
@@ -49,6 +49,30 @@
       max-width: 900px;
       margin: 30px auto;
       padding: 20px;
+    }
+
+    .aumento-volume {
+      background: #14142b;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
+      margin-top: 40px;
+    }
+
+    .aumento-volume h2 {
+      color: #00e0d6;
+      margin-bottom: 15px;
+    }
+
+    .aumento-volume ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .aumento-volume li {
+      padding: 8px 0;
+      border-bottom: 1px solid #2c2c3f;
+      color: #d4d4e0;
     }
 
     .destaques {
@@ -125,6 +149,13 @@
   <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
 
   <main>
+    <section class="aumento-volume">
+      <h2>🔥 TOP 5 Criptos com Maior Aumento de Volume (24h)</h2>
+      <ul id="lista-aumento-volume">
+        <li>Carregando dados...</li>
+      </ul>
+    </section>
+
     <section class="destaques">
       <div class="card">
         <h3>🚀 Em Alta</h3>
@@ -192,8 +223,28 @@
       document.getElementById('ticker').innerHTML = html;
     }
 
+    async function obterTopVolume() {
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=50&page=1');
+      const criptos = await res.json();
+
+      const top = criptos
+        .filter(c => c.volume_change_24h !== null)
+        .sort((a, b) => b.volume_change_24h - a.volume_change_24h)
+        .slice(0, 5);
+
+      const lista = document.getElementById('lista-aumento-volume');
+      lista.innerHTML = '';
+      top.forEach(coin => {
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong>: Volume $${coin.total_volume.toLocaleString()} <br>🔺 +${coin.volume_change_24h.toFixed(2)}%`;
+        lista.appendChild(item);
+      });
+    }
+
     atualizarCotacoes();
+    obterTopVolume();
     setInterval(atualizarCotacoes, 60000);
+    setInterval(obterTopVolume, 60000);
   </script>
 </body>
 </html>
