@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cripto Notícias</title>
+  <title>Crypto Ghost | Notícias Cripto</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; }
+    body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; line-height: 1.6; }
 
     header {
       background: url('https://i.postimg.cc/2jLt5hKt/Chat-GPT-Image-26-de-mar-de-2025-20-56-07.png') no-repeat center center/cover;
@@ -49,6 +49,12 @@
       max-width: 900px;
       margin: 30px auto;
       padding: 20px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .aumento-volume {
@@ -78,12 +84,14 @@
     .destaques {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin: 40px 0;
     }
 
     .card {
       flex: 1;
+      min-width: 260px;
       background: #14142b;
       padding: 20px;
       border-radius: 12px;
@@ -92,7 +100,7 @@
     }
 
     .card:hover {
-      transform: scale(1.02);
+      transform: translateY(-5px);
       box-shadow: 0 0 15px rgba(0,255,255,0.3);
     }
 
@@ -115,23 +123,6 @@
       text-align: center;
       margin-top: 40px;
       box-shadow: 0 0 20px rgba(0,224,214,0.2);
-    }
-
-    article {
-      background: #191932;
-      margin-bottom: 20px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
-    }
-
-    article h2 {
-      margin-bottom: 10px;
-      color: #00e0d6;
-    }
-
-    article p {
-      color: #d4d4e0;
     }
 
     footer {
@@ -191,7 +182,7 @@
   </main>
 
   <footer>
-    &copy; 2025 Cripto Notícias — Desenvolvido por Renan
+    &copy; 2025 Crypto Ghost — Desenvolvido por Renan
   </footer>
 
   <script>
@@ -223,28 +214,33 @@
       document.getElementById('ticker').innerHTML = html;
     }
 
-    async function obterTopVolume() {
-      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=50&page=1');
-      const criptos = await res.json();
+    async function obterTopAumentoVolume() {
+      try {
+        const resposta = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+        const dados = await resposta.json();
 
-      const top = criptos
-        .filter(c => c.volume_change_24h !== null)
-        .sort((a, b) => b.volume_change_24h - a.volume_change_24h)
-        .slice(0, 5);
+        const topAumentos = dados
+          .filter(cripto => cripto.volume_change_percentage_24h !== null)
+          .sort((a, b) => b.volume_change_percentage_24h - a.volume_change_percentage_24h)
+          .slice(0, 5);
 
-      const lista = document.getElementById('lista-aumento-volume');
-      lista.innerHTML = '';
-      top.forEach(coin => {
-        const item = document.createElement('li');
-        item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong>: Volume $${coin.total_volume.toLocaleString()} <br>🔺 +${coin.volume_change_24h.toFixed(2)}%`;
-        lista.appendChild(item);
-      });
+        const lista = document.getElementById('lista-aumento-volume');
+        lista.innerHTML = '';
+
+        topAumentos.forEach(cripto => {
+          const item = document.createElement('li');
+          item.innerHTML = `<strong>${cripto.name} (${cripto.symbol.toUpperCase()})</strong>: Volume $${cripto.total_volume.toLocaleString()} <br>🔺 +${cripto.volume_change_percentage_24h.toFixed(2)}%`;
+          lista.appendChild(item);
+        });
+      } catch (erro) {
+        console.error('Erro ao obter dados das criptomoedas:', erro);
+      }
     }
 
     atualizarCotacoes();
-    obterTopVolume();
+    obterTopAumentoVolume();
     setInterval(atualizarCotacoes, 60000);
-    setInterval(obterTopVolume, 60000);
+    setInterval(obterTopAumentoVolume, 60000);
   </script>
 </body>
 </html>
