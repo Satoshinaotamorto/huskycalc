@@ -10,7 +10,7 @@
     body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; }
 
     header {
-      background: url('https://i.postimg.cc/63BJ1zWm/Chat-GPT-Image-26-de-mar-de-2025-23-49-19.png') no-repeat center center/cover;
+      background: url('https://i.postimg.cc/2jLt5hKt/Chat-GPT-Image-26-de-mar-de-2025-20-56-07.png') no-repeat center center/cover;
       height: 450px;
       display: flex;
       flex-direction: column;
@@ -51,6 +51,48 @@
       padding: 20px;
     }
 
+    .destaques {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      margin: 40px 0;
+    }
+
+    .card {
+      flex: 1;
+      background: #14142b;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+    }
+
+    .timeline .post {
+      margin-bottom: 25px;
+      border-left: 2px solid #00e0d6;
+      padding-left: 15px;
+    }
+
+    .timeline time {
+      font-size: 0.8em;
+      color: #888;
+    }
+
+    .alerta-ghost {
+      background: #0f0f22;
+      border: 1px solid #00e0d6;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 40px;
+      box-shadow: 0 0 20px rgba(0,224,214,0.2);
+    }
+
     article {
       background: #191932;
       margin-bottom: 20px;
@@ -83,15 +125,38 @@
   <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
 
   <main>
-    <article>
-      <h2>Bitcoin se mantém acima de US$60 mil com alta no volume institucional</h2>
-      <p>O Bitcoin continua firme com grandes movimentações de fundos de investimento...</p>
-    </article>
+    <section class="destaques">
+      <div class="card">
+        <h3>🚀 Em Alta</h3>
+        <p>Confira as moedas que mais subiram nas últimas 24h.</p>
+      </div>
+      <div class="card">
+        <h3>👻 Sinal Fantasma</h3>
+        <p>Nossa previsão exclusiva baseada em análise técnica e sentimento do mercado.</p>
+      </div>
+      <div class="card">
+        <h3>📰 Breaking News</h3>
+        <p>Notícias quentes que acabaram de sair direto das blockchains.</p>
+      </div>
+    </section>
 
-    <article>
-      <h2>Altcoins em destaque: PEPE, FLOKI e BONK disparam</h2>
-      <p>Moedas meme voltam a surpreender com ganhos de dois dígitos em menos de 24h...</p>
-    </article>
+    <section class="timeline">
+      <div class="post">
+        <time>10:45 - 26/03</time>
+        <h4>Pepe Coin dispara 21% após tweet misterioso de Elon Musk</h4>
+        <p>A comunidade especula um novo projeto envolvido com o meme token...</p>
+      </div>
+      <div class="post">
+        <time>09:12 - 26/03</time>
+        <h4>Bitcoin se aproxima de US$70 mil após entrada de fundo institucional</h4>
+        <p>Investidores institucionais voltam a se posicionar com força...</p>
+      </div>
+    </section>
+
+    <section class="alerta-ghost">
+      <h2>👻 Alerta do Ghost</h2>
+      <p>Atenção: Dominância do BTC subiu. Pode ser hora de realocar para altcoins antes da próxima explosão.</p>
+    </section>
   </main>
 
   <footer>
