@@ -10,8 +10,8 @@
     body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; }
 
     header {
-      background: url('https://i.postimg.cc/63BJ1zWm/Chat-GPT-Image-26-de-mar-de-2025-23-49-19.png') no-repeat center center/cover;
-      height: 450px;
+      background: url('https://i.postimg.cc/2jLt5hKt/Chat-GPT-Image-26-de-mar-de-2025-20-56-07.png') no-repeat center center/cover;
+      height: 300px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -158,7 +158,7 @@
 
   <footer>&copy; 2025 Crypto Ghost — Desenvolvido por Renan</footer>
 
-  <script>
+  <script defer>
     async function atualizarCotacoes() {
       const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,shiba-inu,pepe,floki,binancecoin&vs_currencies=usd');
       const dados = await res.json();
@@ -239,12 +239,16 @@
       lista.dataset.loaded = 'true';
     }
 
-    atualizarCotacoes();
-    atualizarVolumeTicker();
-    atualizarBreakingNews();
-    setInterval(atualizarCotacoes, 60000);
-    setInterval(atualizarVolumeTicker, 60000);
-    setInterval(atualizarBreakingNews, 180000);
+    window.addEventListener('load', () => {
+      atualizarCotacoes();
+      setTimeout(() => {
+        atualizarVolumeTicker();
+        atualizarBreakingNews();
+      }, 1000);
+      setInterval(atualizarCotacoes, 60000);
+      setInterval(atualizarVolumeTicker, 60000);
+      setInterval(atualizarBreakingNews, 180000);
+    });
   </script>
 
 </body>
