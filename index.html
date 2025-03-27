@@ -10,7 +10,7 @@
     body { font-family: 'Roboto', sans-serif; background-color: #0a0a12; color: #ffffff; line-height: 1.6; }
 
     header {
-      background: url('https://i.postimg.cc/63BJ1zWm/Chat-GPT-Image-26-de-mar-de-2025-23-49-19.png') no-repeat center center/cover;
+      background: url('https://i.postimg.cc/2jLt5hKt/Chat-GPT-Image-26-de-mar-de-2025-20-56-07.png') no-repeat center center/cover;
       height: 450px;
       display: flex;
       flex-direction: column;
@@ -57,7 +57,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .aumento-volume {
+    .aumento-volume, .em-queda {
       background: #14142b;
       padding: 20px;
       border-radius: 12px;
@@ -65,17 +65,17 @@
       margin-top: 40px;
     }
 
-    .aumento-volume h2 {
+    .aumento-volume h2, .em-queda h2 {
       color: #00e0d6;
       margin-bottom: 15px;
     }
 
-    .aumento-volume ul {
+    .aumento-volume ul, .em-queda ul {
       list-style: none;
       padding-left: 0;
     }
 
-    .aumento-volume li {
+    .aumento-volume li, .em-queda li {
       padding: 8px 0;
       border-bottom: 1px solid #2c2c3f;
       color: #d4d4e0;
@@ -166,8 +166,10 @@
         <ul id="lista-em-alta" style="margin-top:10px; list-style:none; padding-left:0;"></ul>
       </div>
       <div class="card">
-        <h3>👻 Sinal Fantasma</h3>
-        <p>Nossa previsão exclusiva baseada em análise técnica e sentimento do mercado.</p>
+        <h3>📉 Em Queda</h3>
+        <p>Veja as moedas que mais desvalorizaram nas últimas 24h.</p>
+        <button onclick="mostrarEmQueda()">Ver Top 10</button>
+        <ul id="lista-em-queda" style="margin-top:10px; list-style:none; padding-left:0;"></ul>
       </div>
       <div class="card">
         <h3>📰 Breaking News</h3>
@@ -241,7 +243,7 @@
 
         top.forEach(coin => {
           const item = document.createElement('li');
-          item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong>:<br> Volume $${coin.total_volume.toLocaleString()}<br>🪙 Preço: $${coin.current_price}`;
+          item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong>:<br> Volume $${coin.total_volume.toLocaleString()}<br>🪙 Preço: $${coin.current_price.toLocaleString()}`;
           lista.appendChild(item);
         });
       } catch (erro) {
@@ -251,24 +253,57 @@
     }
 
     async function mostrarEmAlta() {
-      const res = await fetch(
-        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1'
-      );
-      const dados = await res.json();
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1');
+        const dados = await res.json();
 
-      const top = dados
-        .filter(c => c.price_change_percentage_24h !== null)
-        .sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h)
-        .slice(0, 10);
+        const top = dados
+          .filter(c => c.price_change_percentage_24h !== null)
+          .sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h)
+          .slice(0, 10);
 
-      const lista = document.getElementById('lista-em-alta');
-      lista.innerHTML = '';
+        const lista = document.getElementById('lista-em-alta');
+        lista.innerHTML = '';
 
-      top.forEach(coin => {
-        const item = document.createElement('li');
-        item.innerHTML = `<strong>${coin.name} (${coin.symbol.toUpperCase()})</strong>: 🟢 +${coin.price_change_percentage_24h.toFixed(2)}%<br>💲 $${coin.current_price}`;
-        lista.appendChild(item);
-      });
+        top.forEach(coin => {
+          const item = document.createElement('li');
+          item.innerHTML = `
+            <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
+            📈 +${coin.price_change_percentage_24h.toFixed(2)}%<br>
+            💲 $${coin.current_price.toLocaleString()}`;
+          lista.appendChild(item);
+        });
+      } catch (err) {
+        console.error('Erro ao buscar moedas em alta:', err);
+        document.getElementById('lista-em-alta').innerHTML = '<li>Erro ao carregar dados.</li>';
+      }
+    }
+
+    async function mostrarEmQueda() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1');
+        const dados = await res.json();
+
+        const top = dados
+          .filter(c => c.price_change_percentage_24h !== null)
+          .sort((a, b) => a.price_change_percentage_24h - b.price_change_percentage_24h)
+          .slice(0, 10);
+
+        const lista = document.getElementById('lista-em-queda');
+        lista.innerHTML = '';
+
+        top.forEach(coin => {
+          const item = document.createElement('li');
+          item.innerHTML = `
+            <strong>${coin.name} (${coin.symbol.toUpperCase()})</strong><br>
+            🔻 ${coin.price_change_percentage_24h.toFixed(2)}%<br>
+            💲 $${coin.current_price.toLocaleString()}`;
+          lista.appendChild(item);
+        });
+      } catch (err) {
+        console.error('Erro ao buscar moedas em queda:', err);
+        document.getElementById('lista-em-queda').innerHTML = '<li>Erro ao carregar dados.</li>';
+      }
     }
 
     atualizarCotacoes();
