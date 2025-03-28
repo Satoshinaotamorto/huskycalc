@@ -14,8 +14,11 @@
       color: #f0f0f0;
     }
 
-    .header {
-      text-align: center;
+    .header img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
     }
 
     .container {
@@ -53,4 +56,78 @@
       border: none;
       font-size: 1.1em;
       border-radius: 8px;
-      cursor:
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #102030;
+      border-radius: 10px;
+      font-size: 1.1em;
+      line-height: 1.6em;
+    }
+
+    .motivacional {
+      text-align: center;
+      font-style: italic;
+      font-size: 1.2em;
+      margin: 15px 10px;
+      color: #ffa94d;
+    }
+
+    .btn-link {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 15px 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-usdt { background-color: #28a745; color: white; }
+    .btn-pix { background-color: #007bff; color: white; }
+    .btn-cmc { background-color: #ffc107; color: black; font-size: 1.2em; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+
+    .contador {
+      text-align: center;
+      font-size: 1.3em;
+      margin: 10px 0 20px;
+    }
+
+    .share-btn {
+      background: #00bfa5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    #popupUrgencia {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 20px;
+      background-color: #ff4444;
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1em;
+      box-shadow:
