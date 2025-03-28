@@ -130,4 +130,150 @@
       border-radius: 12px;
       font-weight: bold;
       font-size: 1em;
-      box-shadow:
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      z-index: 9999;
+      max-width: 300px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #popupUrgencia button {
+      background: white;
+      color: #ff4444;
+      font-weight: bold;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://i.postimg.cc/HWJ0X6V0/IMG-20250328-WA0015.jpg" alt="Banner Husky Seal">
+</div>
+
+<div class="contador">
+  <strong>Esta fase termina em:</strong>
+  <span id="contador" style="color:#f25c2b;"></span>
+</div>
+
+<div class="motivacional">"Quem segura a tropa, segura o topo."</div>
+
+<button class="share-btn" onclick="compartilhar()">Compartilhar no Telegram</button>
+
+<div class="container">
+  <label for="tokens">Quantidade de Tokens</label>
+  <input type="number" id="tokens" placeholder="Ex: 500000">
+
+  <label for="precoCompra">Preço de compra (US$) (opcional)</label>
+  <input type="number" step="0.0001" id="precoCompra" placeholder="Ex: 0.0006 (opcional)">
+
+  <label for="precoAlvo">Preço-alvo do token (US$)</label>
+  <input type="number" step="0.0001" id="precoAlvo" placeholder="Ex: 0.10">
+
+  <button onclick="calcular()">CALCULAR</button>
+
+  <div class="result" id="resultado" style="display:none;"></div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <a href="https://presale.huskyseal.io/?ref=750f723be19149b395ff2bc0e36a7bcacfc7e7f1" target="_blank" class="btn-link btn-usdt">Comprar via USDT</a>
+    <a href="https://pixswap.trade/" target="_blank" class="btn-link btn-pix">Comprar via PIX</a>
+  </div>
+</div>
+
+<div style="text-align:center; margin: 30px 10px;">
+  <a href="https://coinmarketcap.com/dexscan/bsc/0xc6ec1bd0285130894f6d90702d12d423036d88df/" target="_blank" class="btn-link btn-cmc">
+    VOTAR NA HUSKY SEAL AGORA!
+  </a>
+</div>
+
+<footer>
+  Projeto Husky Seal | Calculadora feita para a tropa
+</footer>
+
+<div id="popupUrgencia">
+  Atenção, soldado! Faltam poucas horas para o fim da fase!
+  <br>
+  Garanta sua posição agora.
+  <br>
+  <a href="https://presale.huskyseal.io/?ref=750f723be19149b395ff2bc0e36a7bcacfc7e7f1" target="_blank">
+    <button>Comprar Agora</button>
+  </a>
+</div>
+
+<script>
+  function calcular() {
+    const cotacaoDolar = 5.75;
+    const tokens = parseFloat(document.getElementById('tokens').value);
+    const precoCompra = parseFloat(document.getElementById('precoCompra').value);
+    const precoAlvo = parseFloat(document.getElementById('precoAlvo').value);
+
+    if (isNaN(tokens) || isNaN(precoAlvo)) {
+      alert('Preencha todos os campos obrigatórios!');
+      return;
+    }
+
+    const investimentoUSD = isNaN(precoCompra) ? 0 : tokens * precoCompra;
+    const valorFuturoUSD = tokens * precoAlvo;
+    const valorFuturoBRL = valorFuturoUSD * cotacaoDolar;
+    const lucroBRL = investimentoUSD > 0 ? valorFuturoBRL - (investimentoUSD * cotacaoDolar) : 0;
+    const multiplicador = investimentoUSD > 0 ? valorFuturoUSD / investimentoUSD : 0;
+    const percentual = (!isNaN(precoCompra) && precoCompra > 0) ? ((precoAlvo - precoCompra) / precoCompra) * 100 : 0;
+
+    const resultado = `
+      <strong>→ Valor futuro:</strong> US$ ${valorFuturoUSD.toFixed(2)}<br>
+      <strong>→ Valor futuro em real:</strong> R$ ${valorFuturoBRL.toFixed(2)}<br>
+      <strong>→ Lucro estimado:</strong> R$ ${lucroBRL.toFixed(2)}<br>
+      <strong>→ Multiplicador:</strong> ${multiplicador > 0 ? multiplicador.toFixed(2) + 'x' : 'N/A'}<br>
+      <strong>→ Valorização percentual:</strong> ${percentual > 0 ? percentual.toFixed(2) + '%' : 'N/A'}
+    `;
+
+    const resultDiv = document.getElementById('resultado');
+    resultDiv.innerHTML = resultado;
+    resultDiv.style.display = 'block';
+  }
+
+  function compartilhar() {
+    const texto = encodeURIComponent("Acabei de simular meus lucros com a Husky Seal! Veja quanto posso ganhar segurando a tropa: https://huskyseal.io");
+    const url = "https://t.me/share/url?url=https://huskyseal.io&text=" + texto;
+    window.open(url, '_blank');
+  }
+
+  const countdown = () => {
+    const end = new Date("2025-03-28T23:59:00");
+    const now = new Date();
+    const diff = end - now;
+    if (diff <= 0) {
+      document.getElementById("contador").innerHTML = "Fase encerrada";
+      return;
+    }
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    document.getElementById("contador").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+  };
+  setInterval(countdown, 1000);
+  countdown();
+
+  function exibirPopupUrgencia() {
+    const agora = new Date();
+    const fim = new Date("2025-03-28T23:59:00");
+    const horasRestantes = (fim - agora) / 1000 / 60 / 60;
+    if (horasRestantes <= 12 && horasRestantes > 0) {
+      document.getElementById("popupUrgencia").style.display = "block";
+    }
+  }
+  setTimeout(exibirPopupUrgencia, 2000);
+</script>
+
+</body>
+</html>
