@@ -1,177 +1,102 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crypto Ghost | Notícias Cripto</title>
-  <meta name="description" content="Notícias de criptomoedas em tempo real, cotações, rankings e alertas do mercado cripto.">
-  <meta name="keywords" content="criptomoedas, bitcoin, cotação, husky seal, pepe, crypto news">
-  <meta name="author" content="Crypto Ghost">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>Husky Seal Profit Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #0a0a12;
-      color: #ffffff;
-      transition: background 0.3s, color 0.3s;
-    }
-    body.claro {
-      background-color: #ffffff;
-      color: #000000;
-    }
-    header {
-      background: url('https://i.postimg.cc/V6cBY8q6/Chat-GPT-Image-27-de-mar-de-2025-02-36-31.png') no-repeat center center/cover;
-      height: 300px;
-    }
-    #toggle-theme {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 999;
-      padding: 10px 14px;
-      background: #00e0d6;
-      color: black;
-      border-radius: 8px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-    #buy-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #00e0d6;
-      color: black;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 0 10px #00e0d6;
-      z-index: 1000;
-    }
-    #tickers-container {
-      background: #141422;
-      border-bottom: 1px solid #1e1e2d;
-    }
-    .ticker-title {
-      padding: 12px;
-      background: #1e1e2d;
-      color: #00e0d6;
-      font-weight: bold;
-      text-align: center;
-    }
-    .ticker {
-      display: inline-block;
-      white-space: nowrap;
-      animation: ticker 40s linear infinite;
-      padding-left: 100%;
-    }
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to { transform: translateX(-100%); }
-    }
-    .ticker span {
-      margin-right: 40px;
-      color: inherit;
-    }
-    #cotacoes, #volume-ticker {
-      padding: 10px;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-    }
-    main {
-      max-width: 960px;
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      padding: 30px;
+      max-width: 500px;
       margin: auto;
-      padding: 20px;
     }
-    .card {
-      background: #14142b;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 224, 214, 0.1);
-      margin-bottom: 20px;
+
+    h1 {
+      text-align: center;
+      color: #0f172a;
     }
-    body.claro .card {
-      background: #f9f9f9;
-    }
-    .card h3 {
-      margin-bottom: 10px;
-      color: #00e0d6;
-    }
-    .card button {
-      background: #00e0d6;
-      color: #000;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #1e293b;
       font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #0ea5e9;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
     }
-    ul.slide {
-      list-style: none;
-      padding: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.6s ease;
+
+    button:hover {
+      background-color: #0284c7;
     }
-    ul.slide li {
-      padding: 8px 0;
-      border-bottom: 1px solid #2c2c3f;
-    }
-    footer {
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #15803d;
       text-align: center;
-      padding: 30px 10px;
-      font-size: 0.9em;
-      color: #888;
-      background: #0a0a12;
     }
   </style>
 </head>
 <body>
-  <button id="toggle-theme">🌗 Modo Escuro</button>
-  <a id="buy-btn" href="https://presale.huskyseal.io/?ref=750f723be19149b395ff2bc0e36a7bcacfc7e7f1" target="_blank">🚀 Comprar Husky Seal</a>
 
-  <header></header>
+  <h1>Husky Seal Profit Calculator</h1>
 
-  <div id="tickers-container">
-    <div class="ticker-title">💰 Cotações em Tempo Real</div>
-    <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
-    <div class="ticker-title">📊 Top 5 por Volume nas Últimas 24h</div>
-    <div id="volume-ticker"><div class="ticker" id="volume-ticker-content">Carregando volumes...</div></div>
-  </div>
+  <label for="amount">Amount Invested (R$):</label>
+  <input type="number" id="amount" placeholder="Ex: 100">
 
-  <main>
-    <div class="card">
-      <h3>🚀 Top 10 em Alta</h3>
-      <p>Criptomoedas com maior valorização nas últimas 24h</p>
-      <button onclick="mostrarEmAlta()">Ver agora</button>
-      <ul id="lista-em-alta" class="slide" data-loaded="false"></ul>
-    </div>
+  <label for="buyPrice">Buy Price (R$ por token):</label>
+  <input type="number" id="buyPrice" step="0.00001" placeholder="Ex: 0.0006">
 
-    <div class="card">
-      <h3>📉 Top 10 em Queda</h3>
-      <p>Moedas que mais caíram nas últimas 24h</p>
-      <button onclick="mostrarEmQueda()">Ver agora</button>
-      <ul id="lista-em-queda" class="slide" data-loaded="false"></ul>
-    </div>
+  <label for="sellPrice">Sell Price (R$ por token):</label>
+  <input type="number" id="sellPrice" step="0.00001" placeholder="Ex: 0.001">
 
-    <div class="card">
-      <h3>📈 Criptomoedas com Potencial de Alta (Próximas 24h)</h3>
-      <p>Baseado em volume crescente e tendência positiva.</p>
-      <button onclick="mostrarPotenciais()">Ver Lista</button>
-      <ul id="lista-potenciais" class="slide" data-loaded="false"></ul>
-    </div>
+  <button onclick="calculateProfit()">Calculate Profit</button>
 
-    <canvas id="grafico-btc" width="400" height="200"></canvas>
-  </main>
-
-  <footer>&copy; 2025 Crypto Ghost — Desenvolvido por Renan</footer>
+  <div class="result" id="result"></div>
 
   <script>
-    // Seu JS permanece aqui como antes, mantendo tudo funcionando
+    function calculateProfit() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+      const sellPrice = parseFloat(document.getElementById('sellPrice').value);
+
+      if (isNaN(amount) || isNaN(buyPrice) || isNaN(sellPrice)) {
+        document.getElementById('result').innerText = 'Please fill in all fields correctly.';
+        return;
+      }
+
+      const tokensBought = amount / buyPrice;
+      const finalValue = tokensBought * sellPrice;
+      const profit = finalValue - amount;
+
+      document.getElementById('result').innerText = 
+        `Tokens: ${tokensBought.toLocaleString('en-US')} \n` +
+        `Final Value: R$ ${finalValue.toFixed(2)} \n` +
+        `Profit: R$ ${profit.toFixed(2)}`;
+    }
   </script>
+
 </body>
 </html>
