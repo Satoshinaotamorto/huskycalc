@@ -100,12 +100,6 @@
       color: #aaa;
     }
 
-    .contador {
-      text-align: center;
-      font-size: 1.3em;
-      margin: 10px 0 20px;
-    }
-
     .share-btn {
       background: #00bfa5;
       color: white;
@@ -118,51 +112,12 @@
       margin: 10px auto;
       display: block;
     }
-
-    #popupUrgencia {
-      display: none;
-      position: fixed;
-      bottom: 30px;
-      right: 20px;
-      background-color: #ff4444;
-      color: white;
-      padding: 20px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 1em;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      z-index: 9999;
-      max-width: 300px;
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    #popupUrgencia button {
-      background: white;
-      color: #ff4444;
-      font-weight: bold;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body>
 
 <div class="header">
   <img src="https://i.postimg.cc/HWJ0X6V0/IMG-20250328-WA0015.jpg" alt="Banner Husky Seal">
-</div>
-
-<div class="contador">
-  <strong>Esta fase termina em:</strong>
-  <span id="contador" style="color:#f25c2b;"></span>
 </div>
 
 <div class="motivacional">"Quem segura a tropa, segura o topo."</div>
@@ -198,16 +153,6 @@
 <footer>
   Projeto Husky Seal | Calculadora feita para a tropa
 </footer>
-
-<div id="popupUrgencia">
-  Atenção, soldado! Faltam poucas horas para o fim da fase!
-  <br>
-  Garanta sua posição agora.
-  <br>
-  <a href="https://presale.huskyseal.io/?ref=750f723be19149b395ff2bc0e36a7bcacfc7e7f1" target="_blank">
-    <button>Comprar Agora</button>
-  </a>
-</div>
 
 <script>
   function calcular() {
@@ -246,33 +191,6 @@
     const url = "https://t.me/share/url?url=https://huskyseal.io&text=" + texto;
     window.open(url, '_blank');
   }
-
-  const countdown = () => {
-    const end = new Date("2025-03-28T23:59:00");
-    const now = new Date();
-    const diff = end - now;
-    if (diff <= 0) {
-      document.getElementById("contador").innerHTML = "Fase encerrada";
-      return;
-    }
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / (1000 * 60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-    document.getElementById("contador").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
-  };
-  setInterval(countdown, 1000);
-  countdown();
-
-  function exibirPopupUrgencia() {
-    const agora = new Date();
-    const fim = new Date("2025-03-28T23:59:00");
-    const horasRestantes = (fim - agora) / 1000 / 60 / 60;
-    if (horasRestantes <= 12 && horasRestantes > 0) {
-      document.getElementById("popupUrgencia").style.display = "block";
-    }
-  }
-  setTimeout(exibirPopupUrgencia, 2000);
 </script>
 
 </body>
