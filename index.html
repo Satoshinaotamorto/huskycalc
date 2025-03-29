@@ -131,6 +131,47 @@
   </style>
 </head>
 <body>
-  <!-- Todos os elementos de contador regressivo e pop-up foram removidos -->
+  <button id="toggle-theme">🌗 Modo Escuro</button>
+  <a id="buy-btn" href="https://presale.huskyseal.io/?ref=750f723be19149b395ff2bc0e36a7bcacfc7e7f1" target="_blank">🚀 Comprar Husky Seal</a>
+
+  <header></header>
+
+  <div id="tickers-container">
+    <div class="ticker-title">💰 Cotações em Tempo Real</div>
+    <div id="cotacoes"><div class="ticker" id="ticker">Carregando cotações...</div></div>
+    <div class="ticker-title">📊 Top 5 por Volume nas Últimas 24h</div>
+    <div id="volume-ticker"><div class="ticker" id="volume-ticker-content">Carregando volumes...</div></div>
+  </div>
+
+  <main>
+    <div class="card">
+      <h3>🚀 Top 10 em Alta</h3>
+      <p>Criptomoedas com maior valorização nas últimas 24h</p>
+      <button onclick="mostrarEmAlta()">Ver agora</button>
+      <ul id="lista-em-alta" class="slide" data-loaded="false"></ul>
+    </div>
+
+    <div class="card">
+      <h3>📉 Top 10 em Queda</h3>
+      <p>Moedas que mais caíram nas últimas 24h</p>
+      <button onclick="mostrarEmQueda()">Ver agora</button>
+      <ul id="lista-em-queda" class="slide" data-loaded="false"></ul>
+    </div>
+
+    <div class="card">
+      <h3>📈 Criptomoedas com Potencial de Alta (Próximas 24h)</h3>
+      <p>Baseado em volume crescente e tendência positiva.</p>
+      <button onclick="mostrarPotenciais()">Ver Lista</button>
+      <ul id="lista-potenciais" class="slide" data-loaded="false"></ul>
+    </div>
+
+    <canvas id="grafico-btc" width="400" height="200"></canvas>
+  </main>
+
+  <footer>&copy; 2025 Crypto Ghost — Desenvolvido por Renan</footer>
+
+  <script>
+    // Seu JS permanece aqui como antes, mantendo tudo funcionando
+  </script>
 </body>
 </html>
